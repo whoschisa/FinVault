@@ -90,7 +90,7 @@ def signup():
 
     while True:
         data = [username, pwd]
-        with open('data.csv', mode='w+', newline='') as file:
+        with open('data.csv', mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(data)
             cur.execute(f"CREATE TABLE `{username}` (account INTEGER primary key, balanc DECIMAL(10,2) DEFAULT 0.00, doj DATE );")
@@ -153,7 +153,6 @@ def welcome():
             print("╚═══════════════════════════════════════╝")
 
 def menu():
-    while True:
         print("Hi")
 
 
