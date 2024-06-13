@@ -6,8 +6,6 @@ from datetime import date, timedelta
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 import os
-day = date.today()
-
 
 con = mycon.connect(
     host="localhost",
@@ -18,7 +16,6 @@ con = mycon.connect(
 
 if con.is_connected():
     print("[LOGS] : Database Connected")
-    
 
 cur = con.cursor()
 
@@ -32,7 +29,6 @@ def printbw(content):
         padding_width = (terminal_width - content_width) // 2
         padding = " " * padding_width
         print(padding + content + padding)
-
 
 def signup():
     global username                                                     # This will be the global username
@@ -63,7 +59,6 @@ def signup():
         
         break
 
-
     while True:
         time.sleep(0.18)
         printbw(r"╔════════════════════════════════════════════════════════════╗")
@@ -88,19 +83,18 @@ def signup():
 
         break
 
-    while True:
-        data = [username, pwd]
-        with open('data.csv', mode='a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(data)
-            cur.execute(f"CREATE TABLE `{username}` (account INTEGER primary key, balanc DECIMAL(10,2) DEFAULT 0.00, doj DATE );")
-            con.commit()
-            menu()
+    # Append the new user data to the CSV file
+    data = [username, pwd]
+    with open('data.csv', mode='a', newline='') as file:  # Use 'a' mode to append
+        writer = csv.writer(file)
+        writer.writerow(data)
 
-            continue
+    # Create a new table for the user
+    cur.execute(f"CREATE TABLE `{username}` (account INTEGER primary key, balanc DECIMAL(10,2) DEFAULT 0.00, doj DATE );")
+    con.commit()
 
-
-            # Code in Progress
+    # Call the menu function
+    menu()
 
 def welcome():
     while True:
@@ -123,7 +117,6 @@ def welcome():
         printbw(r"║                 2. Login to your Account                   ║")
         printbw(r"║                 3. Exit the App                            ║")
         printbw(r"╚════════════════════════════════════════════════════════════╝")
-
 
         choice = input("Enter Your Choice: ")
         if choice == "1":
@@ -153,7 +146,6 @@ def welcome():
             print("╚═══════════════════════════════════════╝")
 
 def menu():
-        print("Hi")
-
+    print("Hi")
 
 welcome()
