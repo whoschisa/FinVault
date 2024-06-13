@@ -83,17 +83,13 @@ def signup():
 
         break
 
-    # Append the new user data to the CSV file
     data = [username, pwd]
-    with open('data.csv', mode='a', newline='') as file:  # Use 'a' mode to append
+    with open('data.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data)
-
-    # Create a new table for the user
     cur.execute(f"CREATE TABLE `{username}` (account INTEGER primary key, balanc DECIMAL(10,2) DEFAULT 0.00, doj DATE );")
     con.commit()
 
-    # Call the menu function
     menu()
 
 def welcome():
@@ -135,15 +131,15 @@ def welcome():
             printbw(r"║                                                            ║")
             printbw(r"╚════════════════════════════════════════════════════════════╝")
             time.sleep(0.2)
-            print("╔═════════════════════════════════════════════╗")
-            print("║        Thank You For Using PY - FIT         ║")
-            print("╚═════════════════════════════════════════════╝")
+            printbw(r"╔═════════════════════════════════════════════════════════════╗")
+            printbw(r"║             Thank You for using Fin - Vault                 ║")
+            printbw(r"╚═════════════════════════════════════════════════════════════╝")
             quit()
         else:
-            print("╔═══════════════════════════════════════╗")
-            print("║ Invalid input. Please choose a number ║")
-            print("║             from 1 to 3.              ║")
-            print("╚═══════════════════════════════════════╝")
+            printbw(r"╔════════════════════════════════════════════════════════════╗")
+            printbw(r"║               Invalid Input, Please choose                 ║")
+            printbw(r"║                   options from 1 - 3                       ║")
+            printbw(r"╚════════════════════════════════════════════════════════════╝")
 
 def menu():
     print("Hi")
