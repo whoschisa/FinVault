@@ -36,7 +36,6 @@ def printbw(content):
 
 def signup():
     global username                                                     # This will be the global username
-    global doj                                                          # This will be the join date
     while True:
         printbw(r"╔════════════════════════════════════════════════════════════╗")
         printbw(r"║                Enter your desired username:                ║")
@@ -91,7 +90,7 @@ def signup():
 
     while True:
         data = [username, pwd]
-        with open('data.csv', mode='a', newline='') as file:
+        with open('data.csv', mode='w+', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(data)
             cur.execute(f"CREATE TABLE `{username}` (account INTEGER primary key, balanc DECIMAL(10,2) DEFAULT 0.00, doj DATE );")
