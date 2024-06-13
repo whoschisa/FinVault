@@ -1,5 +1,6 @@
 import mysql.connector as mycon
 import random
+from prettytable import PrettyTable
 import csv
 import time
 from datetime import date, timedelta
@@ -19,23 +20,13 @@ if con.is_connected():
 
 cur = con.cursor()
 
-def printbw(content):
-    terminal_width = os.get_terminal_size().columns
-    content_width = len(content)
-
-    if content_width >= terminal_width:
-        print(content)
-    else:
-        padding_width = (terminal_width - content_width) // 2
-        padding = " " * padding_width
-        print(padding + content + padding)
-
+#Sign-up Function
 def signup():
     global username                                                     # This will be the global username
     while True:
-        printbw(r"╔════════════════════════════════════════════════════════════╗")
-        printbw(r"║                Enter your desired username:                ║")
-        printbw(r"╚════════════════════════════════════════════════════════════╝")
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║                Enter your desired username:                ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
         username = input("INPUT:")
         with open("data.csv", "r") as file:
             read = csv.reader(file)
@@ -44,41 +35,41 @@ def signup():
 
         if username in items:
             time.sleep(0.18)
-            printbw(r"╔════════════════════════════════════════════════════════════╗")
-            printbw(r"║                    Username already exists.                ║")
-            printbw(r"╚════════════════════════════════════════════════════════════╝")
+            print(r"╔════════════════════════════════════════════════════════════╗")
+            print(r"║                    Username already exists.                ║")
+            print(r"╚════════════════════════════════════════════════════════════╝")
             continue
         
         if len(username) > 20:
             time.sleep(0.18)
-            printbw(r"╔════════════════════════════════════════════════════════════╗")
-            printbw(r"║                Username should be of max                   ║")
-            printbw(r"║                   20 characters                            ║")
-            printbw(r"╚════════════════════════════════════════════════════════════╝")
+            print(r"╔════════════════════════════════════════════════════════════╗")
+            print(r"║                Username should be of max                   ║")
+            print(r"║                   20 characters                            ║")
+            print(r"╚════════════════════════════════════════════════════════════╝")
             continue
         
         break
 
     while True:
         time.sleep(0.18)
-        printbw(r"╔════════════════════════════════════════════════════════════╗")
-        printbw(r"║                  Enter a valid password:                   ║")
-        printbw(r"╚════════════════════════════════════════════════════════════╝")
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║                  Enter a valid password:                   ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
 
         pwd = input(" ")
 
         time.sleep(0.18)
-        printbw(r"╔══════════════════════════════════════════════════════════════╗")
-        printbw(r"║                      Confirm Password                        ║")
-        printbw(r"╚══════════════════════════════════════════════════════════════╝")
+        print(r"╔══════════════════════════════════════════════════════════════╗")
+        print(r"║                      Confirm Password                        ║")
+        print(r"╚══════════════════════════════════════════════════════════════╝")
 
         confirm_pwd = input(" ")
 
         if pwd != confirm_pwd:
             time.sleep(0.18)
-            printbw(r"╔══════════════════════════════════════════════════════════════╗")
-            printbw(r"║                   Passwords do not match                     ║")
-            printbw(r"╚══════════════════════════════════════════════════════════════╝")
+            print(r"╔══════════════════════════════════════════════════════════════╗")
+            print(r"║                   Passwords do not match                     ║")
+            print(r"╚══════════════════════════════════════════════════════════════╝")
             continue
 
         break
@@ -92,27 +83,40 @@ def signup():
 
     menu()
 
+#Login Function
+def login():
+    while True:
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║                   Enter your username:                     ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
+        input_username = input(" ")
+        with open("data.csv", "r") as file:
+            read = csv.reader(file)
+            rows = list(read)
+            items = [row[0] for row in rows]
+
+
 def welcome():
     while True:
-        printbw(r"╔════════════════════════════════════════════════════════════╗")
-        printbw(r"║  ______  _                __      __               _  _    ║")
-        printbw(r"║ |  ____|(_)               \ \    / /              | || |   ║")
-        printbw(r"║ | |__    _  _ __   ______  \ \  / /   __ _  _   _ | || |_  ║")
-        printbw(r"║ |  __|  | || '_ \ |______|  \ \/ /   / _` || | | || || __| ║")
-        printbw(r"║ | |     | || | | |           \  /   | (_| || |_| || || |_  ║")
-        printbw(r"║ |_|     |_||_| |_|            \/     \__,_| \__,_||_| \__| ║")
-        printbw(r"║                                                            ║")
-        printbw(r"╚════════════════════════════════════════════════════════════╝")
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║  ______  _                __      __               _  _    ║")
+        print(r"║ |  ____|(_)               \ \    / /              | || |   ║")
+        print(r"║ | |__    _  _ __   ______  \ \  / /   __ _  _   _ | || |_  ║")
+        print(r"║ |  __|  | || '_ \ |______|  \ \/ /   / _` || | | || || __| ║")
+        print(r"║ | |     | || | | |           \  /   | (_| || |_| || || |_  ║")
+        print(r"║ |_|     |_||_| |_|            \/     \__,_| \__,_||_| \__| ║")
+        print(r"║                                                            ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
         time.sleep(0.2)
-        printbw(r"╔═════════════════════════════════════════════════════════════╗")
-        printbw(r"║           Welcome! How can we assist you today?             ║")
-        printbw(r"╚═════════════════════════════════════════════════════════════╝")
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║           Welcome! How can we assist you today?            ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
         time.sleep(0.2)
-        printbw(r"╔════════════════════════════════════════════════════════════╗")
-        printbw(r"║                 1. Open an Account                         ║")
-        printbw(r"║                 2. Login to your Account                   ║")
-        printbw(r"║                 3. Exit the App                            ║")
-        printbw(r"╚════════════════════════════════════════════════════════════╝")
+        print(r"╔════════════════════════════════════════════════════════════╗")
+        print(r"║                 1. Open an Account                         ║")
+        print(r"║                 2. Login to your Account                   ║")
+        print(r"║                 3. Exit the App                            ║")
+        print(r"╚════════════════════════════════════════════════════════════╝")
 
         choice = input("Enter Your Choice: ")
         if choice == "1":
@@ -121,25 +125,25 @@ def welcome():
         elif choice == "2":
             return
         elif choice == "3":
-            printbw(r"╔════════════════════════════════════════════════════════════╗")
-            printbw(r"║  ______  _                __      __               _  _    ║")
-            printbw(r"║ |  ____|(_)               \ \    / /              | || |   ║")
-            printbw(r"║ | |__    _  _ __   ______  \ \  / /   __ _  _   _ | || |_  ║")
-            printbw(r"║ |  __|  | || '_ \ |______|  \ \/ /   / _` || | | || || __| ║")
-            printbw(r"║ | |     | || | | |           \  /   | (_| || |_| || || |_  ║")
-            printbw(r"║ |_|     |_||_| |_|            \/     \__,_| \__,_||_| \__| ║")
-            printbw(r"║                                                            ║")
-            printbw(r"╚════════════════════════════════════════════════════════════╝")
+            print(r"╔════════════════════════════════════════════════════════════╗")
+            print(r"║  ______  _                __      __               _  _    ║")
+            print(r"║ |  ____|(_)               \ \    / /              | || |   ║")
+            print(r"║ | |__    _  _ __   ______  \ \  / /   __ _  _   _ | || |_  ║")
+            print(r"║ |  __|  | || '_ \ |______|  \ \/ /   / _` || | | || || __| ║")
+            print(r"║ | |     | || | | |           \  /   | (_| || |_| || || |_  ║")
+            print(r"║ |_|     |_||_| |_|            \/     \__,_| \__,_||_| \__| ║")
+            print(r"║                                                            ║")
+            print(r"╚════════════════════════════════════════════════════════════╝")
             time.sleep(0.2)
-            printbw(r"╔═════════════════════════════════════════════════════════════╗")
-            printbw(r"║             Thank You for using Fin - Vault                 ║")
-            printbw(r"╚═════════════════════════════════════════════════════════════╝")
+            print(r"╔═════════════════════════════════════════════════════════════╗")
+            print(r"║             Thank You for using Fin - Vault                 ║")
+            print(r"╚═════════════════════════════════════════════════════════════╝")
             quit()
         else:
-            printbw(r"╔════════════════════════════════════════════════════════════╗")
-            printbw(r"║               Invalid Input, Please choose                 ║")
-            printbw(r"║                   options from 1 - 3                       ║")
-            printbw(r"╚════════════════════════════════════════════════════════════╝")
+            print(r"╔════════════════════════════════════════════════════════════╗")
+            print(r"║               Invalid Input, Please choose                 ║")
+            print(r"║                   options from 1 - 3                       ║")
+            print(r"╚════════════════════════════════════════════════════════════╝")
 
 def menu():
     print("Hi")
